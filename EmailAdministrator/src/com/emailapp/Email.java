@@ -9,7 +9,7 @@ public class Email {
     private String password;
     private String department;
     private String email;
-    private String companySuffix = "company.com";
+    private String companySuffix = "design.com";
     private int defaultPassword = 10;
 
     // constructor to receive first + last name
@@ -36,15 +36,15 @@ public class Email {
 
     // ask for the department
     private String setDepartment(){
-        System.out.print("DEPARTMENT CODES: \n1 for Sales\n2 for Development\n3 for Accounting\n0 for none\n\nEnter department code" + "\n");
+        System.out.print("DEPARTMENTS: \n1 for UI\n2 for UX\n3 for Development\n0 for none\n\nEnter department code" + "\n");
         Scanner in = new Scanner(System.in);
         int departmentChoice = in.nextInt();
         if(departmentChoice == 1){
-            return "sales";
+            return "ui";
         } else if(departmentChoice == 2){
-            return "dev";
+            return "ux";
         } else if (departmentChoice == 3){
-            return "acct";
+            return "dev";
         } else return "";
     }
 
@@ -79,7 +79,7 @@ public class Email {
     // show employee information
     public String showInfo(){
         return " EMPLOYEE NAME: " + firstName + " " + lastName +
-                "\n DEPARTMENT CODE: " + department +
+                "\n DEPARTMENT: " + department +
                 "\n COMPANY EMAIL: " + email +
                 "\n PASSWORD: " + this.password;
     }
