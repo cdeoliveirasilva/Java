@@ -14,10 +14,12 @@ public class GUI implements ActionListener {
 
     private static JTextField user_firstName;
     private static JTextField user_lastName;
-    private static JTextField user_depCode;
+    private static JComboBox comboBox;
 
     private static JButton button;
-    private static JLabel generate;
+    private static JLabel getNewUser;
+    private static JLabel getEmail;
+    private static JLabel getPassword;
 
     private int defaultPassword = 10;
 
@@ -26,7 +28,7 @@ public class GUI implements ActionListener {
 
         JPanel panel = new JPanel();
         JFrame frame = new JFrame();
-        frame.setSize(300, 400);
+        frame.setSize(365, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Employee administration");
         frame.add(panel);
@@ -35,89 +37,81 @@ public class GUI implements ActionListener {
 
         // label setup
         label_firstName = new JLabel("First Name:");
-        label_firstName.setBounds(10, 20, 80, 25);
+        label_firstName.setBounds(20, 20, 80, 25);
         panel.add(label_firstName);
 
         label_lastName = new JLabel("Last name:");
-        label_lastName.setBounds(10, 50, 80, 25);
+        label_lastName.setBounds(20, 50, 80, 25);
         panel.add(label_lastName);
 
         label_depCode = new JLabel("Dep. code:");
-        label_depCode.setBounds(10, 80, 80, 25);
+        label_depCode.setBounds(20, 80, 80, 25);
         panel.add(label_depCode);
-
-//        String[] depStrings = {"Sales", "Development", "Accountancy"};
-//
-//        final JComboBox<String> cb = new JComboBox<>(depStrings);
-//
-//        cb.setMaximumSize(cb.getPreferredSize());
-//        cb.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // text field setup
         user_firstName = new JTextField(20);
-        user_firstName.setBounds(100, 20, 175, 25);
+        user_firstName.setBounds(110, 20, 175, 25);
         panel.add(user_firstName);
 
         user_lastName = new JTextField(20);
-        user_lastName.setBounds(100, 50, 175, 25);
+        user_lastName.setBounds(110, 50, 175, 25);
         panel.add(user_lastName);
+
+        comboBox = new JComboBox();
+        comboBox.addItem("Sales");
+        comboBox.addItem("Development");
+        comboBox.addItem("Accounting");
+        comboBox.getSelectedItem();
+        comboBox.setBounds(110, 80, 175, 25);
+        panel.add(comboBox);
 
         // button setup
         button = new JButton("Create new user");
-        button.setBounds(10, 130, 200, 25);
+        button.setBounds(90, 130, 200, 25);
         button.addActionListener(new GUI());
         panel.add(button);
 
-        // submit and generate label
-        generate = new JLabel("");
-        generate.setBounds(10, 170, 400, 50);
-        panel.add(generate);
+        // submit and print
+        getNewUser = new JLabel("");
+        getNewUser.setBounds(20, 165, 400, 50);
+        getNewUser.setBackground(Color.white);
+        panel.add(getNewUser);
+
+        getEmail = new JLabel("");
+        getEmail.setBounds(20, 195, 400, 50);
+        panel.add(getEmail);
+
+        getPassword = new JLabel("");
+        getPassword.setBounds(20, 225, 400, 50);
+        panel.add(getPassword);
 
         frame.setVisible(true);
     }
 
 
-        // generate random password
-        private String randomPassword(int length){
-            String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&";
-            char[] password = new char[length];
-            for (int i = 0; i < length; i++){
-                int random = (int) (Math.random() * characters.length());
-                password[i] = characters.charAt(random);
-            }
-            return new String(password);
-
+    // generate random password
+    private String randomPassword(int length) {
+        String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&";
+        char[] password = new char[length];
+        for (int i = 0; i < length; i++) {
+            int random = (int) (Math.random() * characters.length());
+            password[i] = characters.charAt(random);
         }
+        return new String(password);
 
+    }
 
     public void actionPerformed(ActionEvent e) {
 
         String newUser = "New employee: " + user_firstName.getText() + " " + user_lastName.getText();
         String firstName = user_firstName.getText();
         String lastName = user_lastName.getText();
-        String dep = "Department: " + user_depCode.getText();
-        String email = "New email: " + firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + dep + ".company.com";
-        String password = "\n" + "New password: " + randomPassword(defaultPassword);
+        String dep = (String )comboBox.getSelectedItem();
+        String email = "New email: " + firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + dep.toLowerCase() + ".company.com";
+        String password = "New password: " + randomPassword(defaultPassword);
 
-//        generate.setText(newUser + email);
-//        generate.setText(firstName);
-//        generate.setText(lastName);
-//        generate.setText(dep);
-//        generate.setText(email);
-        generate.setText(password);
-        }
-
-//        System.out.println("New user: " + firstName + " " + lastName + " " + "from " + dep + " " + "department");
-//        String newUser = "New user: " + firstName + " " + lastName;
-//        generate.setText(newUser);
-//        String newEmail = "New email: " + firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + dep + ".company.com";
-//        generate.setText(newEmail);
-
-
-//        label_firstName.setText("Carla");
-//        label_lastName.setText("de Oliveira Silva");
-//        label_depCode.setText("Developer");
-//        label_newEmail.setText("carla.deos@dev.company.com");
-//        label_newPassword.setText("ahri5nv2");
-
+        getNewUser.setText(newUser);
+        getEmail.setText(email);
+        getPassword.setText(password);
     }
+}
